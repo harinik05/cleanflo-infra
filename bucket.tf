@@ -28,3 +28,24 @@ resource "aws_s3_bucket_cors_configuration" "waterquality10989760_cors" {
   }
 }
 
+/*
+Resource to set up the lifecycle configuration
+expire_old_versions is true so it will be deleted after 30 days
+status: specifies if the lifecycle rule has been enabled or not
+expiration: after 30 days, all resources in bucket will be removed
+*/
+resource "aws_s3_bucket_lifecycle_configuration" "waterquality10989760_lifecycle" {
+  bucket = aws_s3_bucket.waterquality10989760.bucket
+  rule {
+    id     = "expire_old_versions"
+    //enabled = true
+    status = "Enabled"
+    //prefix = ""  # Apply to all objects in the bucket (adjust if needed)
+
+    expiration {
+      days = 30  # Objects will be deleted after 30 days
+    }
+  }
+}
+
+
