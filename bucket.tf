@@ -38,14 +38,23 @@ resource "aws_s3_bucket_lifecycle_configuration" "waterquality10989760_lifecycle
   bucket = aws_s3_bucket.waterquality10989760.bucket
   rule {
     id     = "expire_old_versions"
-    //enabled = true
     status = "Enabled"
-    //prefix = ""  # Apply to all objects in the bucket (adjust if needed)
-
     expiration {
       days = 30  # Objects will be deleted after 30 days
     }
   }
 }
+
+/*
+Resource to set up the bucket logging
+target_bucket: S3 bucket thats going to receive the logs
+target_prefix: The prefix to log the object keys
+*/
+resource "aws_s3_bucket_logging" "waterquality10989760_logging" {
+  bucket = aws_s3_bucket.waterquality10989760.bucket
+  target_bucket = "${var.target_bucket_name}"  # Replace with the target bucket for logs
+  target_prefix = "logs/"  # Replace with the desired prefix for log object keys
+}
+
 
 
