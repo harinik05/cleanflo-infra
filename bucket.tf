@@ -56,5 +56,30 @@ resource "aws_s3_bucket_logging" "waterquality10989760_logging" {
   target_prefix = "logs/"  # Replace with the desired prefix for log object keys
 }
 
+/*
+Resource to set up a bucket policy for waterquality10989760 bucket
+policy: Define your S3 bucket policy in JSON format
+*/
+/*
+resource "aws_s3_bucket_policy" "waterquality10989760_policy" {
+  bucket = aws_s3_bucket.waterquality10989760.bucket
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::${aws_s3_bucket.waterquality10989760.bucket}/*"
+    }
+  ]
+}
+POLICY
+}
+*/
+
+
 
 
