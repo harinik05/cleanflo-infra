@@ -5,11 +5,29 @@ CleanFlo is a prototype that incorporates the devOps practices from IaC tool, Te
     <img width="630" alt="Software Architecture Diagram of CleanFlo App" src="https://github.com/harinik05/cleanflo-poc/assets/63025647/58bf8cab-8ebc-4d54-8b7a-9039ffb2fff8">
 </p>
 
-## 🖥️ Dependencies
+## 🖥️ Dependencies & Setup
 
 ### Programmatic setup of AWS with Visual Studio Code
-1. Install the AWS Toolkit extension from VS Code
-2. Enter the Access Key and Secret Key along with 
+1. Install the `AWS Toolkit extension` from VS Code
+2. Enter the Access Key and Secret Key along with the username
+3. Clone this repository and place it in a folder
+
+### Running as IaC
+1. Install HomeBrew on Mac 
+2. Add it as an environmental variable to your paths
+3. Install Terraform `brew install terraform`
+4. Run all of these commands and check if the resources has been created
+```
+terraform init
+terraform plan
+terraform apply
+terraform destroy
+```
+Optional: Add the variables from `variables.tf` as environmental variables using `export TF_VAR_<VAR_NAME> = "value"`
+
+### CI/CD Integration with Github Actions
+1. Commit a change to the repository
+2. Workflow file will automatically execute in `Actions`
 
 ## ⚙️ Process
 
