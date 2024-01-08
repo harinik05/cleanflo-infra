@@ -9,10 +9,10 @@ exports.handler = async (event) => {
         const dynamodb = new AWS.DynamoDB();
 
         // S3 Bucket details
-        const s3BucketName = 'your-s3-bucket-name';
+        const s3BucketName = "${var.bucket_name}";
 
         // DynamoDB Table details
-        const dynamoDBTableName = 'your-dynamodb-table-name';
+        const dynamoDBTableName = aws_dynamodb_table.basic-dynamodb-table.name;
 
         // Fetch number of objects in S3 bucket
         const s3Objects = await s3.listObjectsV2({ Bucket: s3BucketName }).promise();
