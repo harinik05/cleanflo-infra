@@ -27,7 +27,8 @@ Optional: Add the variables from `variables.tf` as environmental variables using
 
 ### CI/CD Integration with Github Actions
 1. Commit a change to the repository
-2. Workflow file will automatically execute in `Actions`
+2. Include the Access key and secret key in repository secrets of settings in the repo
+3. Workflow file will automatically execute in `Actions`
 
 ## ⚙️ Process
 
