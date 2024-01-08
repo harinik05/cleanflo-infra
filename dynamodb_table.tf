@@ -1,3 +1,4 @@
+//List of things to implement: point_in_time_recovery, replica, server side encryption, stream_enabled , stream_view_type, s3 bucket source
 resource "aws_dynamodb_table" "basic-dynamodb-table" {
   name           = "GameScores"
   billing_mode   = "PROVISIONED"
