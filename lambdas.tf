@@ -1,8 +1,14 @@
-resource "aws_lambda_function" "example" {
-  function_name    = "example-lambda"
-  filename         = "lambda_function_payload.zip"
-  source_code_hash = filebase64sha256("lambda_function_payload.zip")
-  handler          = "index.handler"
-  role             = aws_iam_role.example.arn
-  runtime          = "nodejs14.x"
+
+data "archive_file" "zip_the_python_code" {
+type        = "zip"
+source_dir  = "./python/"
+output_path = "./python/hello-python.zip"
+}
+
+resource "aws_lambda_function" "terraform_lambda_func" {
+filename                       = "./python/hello-python.zip"
+function_name                  = "Spacelift_Test_Lambda_Function"
+role                           = "arn:aws:iam::720479364235:role/service-role/mylambdarole"
+handler                        = "index.lambda_handler"
+runtime                        = "python3.8"
 }
