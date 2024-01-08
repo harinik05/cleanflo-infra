@@ -31,7 +31,10 @@ Initially, the `aws_glue_catalog_database` was defined to store the information 
 The python script uses the AWS Glue library and pySpark for ETL operations to transform the CSV data. Once the source path was defined, a DynamicFrame is created from the AWS Glue library for the csv file, and then `select_fields` was used to apply transformation for all the columns from the source table. Then, this was converted to Spark DataFrame to be written to the DynamoDB table using Apache Spark and DynamoDB connector. 
 
 ### 3. AWS DynamoDB
-The resource for DynamoDB table was created to incorporate various features such as TTL, point-in-time recovery, and streams for new and old images. The primary key was set up through `UniqueID` (hash key) and `SpeciesName` (range key).  
+The resource for DynamoDB table was created to incorporate various features such as TTL, point-in-time recovery, and streams for new and old images. The primary key was set up through `UniqueID` (hash key) and `SpeciesName` (range key). Then, the secondary key setup was completed through `SpeciesName` as hashkey and `PopulationCount` as range key. 
+
+### 4. AWS Lambda
+The source code was indicated in the filename section along with the appropriate entry point (handler) and runtime (language). Initially, a data (archieve_file) was built as a zip folder before exporting it to AWS Lambda. 
 Dependencies
 
 Features 
