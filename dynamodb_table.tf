@@ -22,14 +22,15 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
     type = "N"
   }
 
-  attribute {
-    name = "PresenceInArea"
-    type = "B"
-  }
-
   ttl {
     attribute_name = "TimeToExist"
     enabled        = false
+  }
+
+  //point in time recovery
+  //keeps the data in a second timeline for 35 days
+  point_in_time_recovery {
+    enabled = true
   }
 
   global_secondary_index {
@@ -39,7 +40,7 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
     write_capacity     = 10
     read_capacity      = 10
     projection_type    = "INCLUDE"
-    non_key_attributes = ["UniqueID", "PresenceInArea"]
+    non_key_attributes = ["UniqueID"]
   }
 
   tags = {
