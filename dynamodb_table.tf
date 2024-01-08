@@ -1,4 +1,5 @@
 //List of things to implement: point_in_time_recovery, replica, server side encryption, stream_enabled , stream_view_type, s3 bucket source
+
 resource "aws_dynamodb_table" "basic-dynamodb-table" {
   name           = "PlantData"
   billing_mode   = "PROVISIONED"
@@ -15,16 +16,20 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   attribute {
     name = "SpeciesName"
     type = "S"
+    
   }
 
   attribute {
     name = "PopulationCount"
     type = "N"
   }
+  stream_enabled  = true
+  stream_view_type = "NEW_AND_OLD_IMAGES"
+  
 
   ttl {
     attribute_name = "TimeToExist"
-    enabled        = false
+    enabled        = true
   }
 
   //point in time recovery
@@ -32,7 +37,7 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   point_in_time_recovery {
     enabled = true
   }
-
+  
   global_secondary_index {
     name               = "SpeciesNameIndex"
     hash_key           = "SpeciesName"
@@ -42,9 +47,13 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
     projection_type    = "INCLUDE"
     non_key_attributes = ["UniqueID"]
   }
+    /*replica {
+    region_name = "us-west-2"  # Replace with the desired region for the replica
+    }*/
 
   tags = {
     Name        = "dynamodb-table-1"
     Environment = "production"
   }
 }
+

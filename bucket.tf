@@ -154,3 +154,10 @@ resource "aws_iam_role_policy_attachment" "s3_upload_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"  # Replace with your desired S3 policy ARN
   role       = aws_iam_role.s3_upload_role.name //role
 }*/
+
+resource "aws_s3_bucket_object" "csv_object" {
+  bucket = "${var.bucket_name}"
+  key    = "plants_new.csv"  # Replace with the key of your CSV file in the S3 bucket
+  acl    = "private"
+  source = "./Species_Data/plants.csv"  # Replace with the local path to your CSV file
+}

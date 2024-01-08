@@ -1,31 +1,31 @@
-Species Name,Unique ID,Population Count,Presence in Area
-Oak Tree,2001,1200,True
-Sunflower,2002,800,True
-Bamboo,2003,600,True
-Daffodil,2004,450,True
-Maple Tree,2005,300,True
-Rose,2006,150,False
-Tulip,2007,200,False
-Palm Tree,2008,400,True
-Fern,2009,100,False
-Cactus,2010,120,True
-Lily,2011,250,False
-Daisy,2012,180,True
-Hibiscus,2013,300,True
-Birch Tree,2014,500,True
-Wild Grass,2015,700,True
-Violet,2016,90,False
-Cherry Blossom,2017,350,True
-Aloe Vera,2018,80,False
-Fir Tree,2019,420,True
-Succulent,2020,150,False
-Dandelion,2021,280,False
-Orchid,2022,200,True
-Cypress Tree,2023,320,True
-Lavender,2024,180,False
-Eucalyptus,2025,270,True
-Pine Tree,2026,600,True
-Marigold,2027,130,False
-Moss,2028,80,False
-Azalea,2029,250,True
-Beech Tree,2030,400,True
+UniqueID,SpeciesName,PopulationCount
+2001,Oak Tree,1200
+2002,Sunflower,800
+2003,Bamboo,600
+2004,Daffodil,450
+2005,Maple Tree,300
+2006,Rose,150
+2007,Tulip,200
+2008,Palm Tree,400
+2009,Fern,100
+2010,Cactus,120
+2011,Lily,250
+2012,Daisy,180
+2013,Hibiscus,300
+2014,Birch Tree,500
+2015,Wild Grass,700
+2016,Violet,90
+2017,Cherry Blossom,350
+2018,Aloe Vera,80
+2019,Fir Tree,420
+2020,Succulent,150
+2021,Dandelion,280
+2022,Orchid,200
+2023,Cypress Tree,320
+2024,Lavender,180
+2025,Eucalyptus,270
+2026,Pine Tree,600
+2027,Marigold,130
+2028,Moss,80
+2029,Azalea,250
+2030,Beech Tree,400
