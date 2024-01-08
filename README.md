@@ -62,8 +62,11 @@ The resource for DynamoDB table was created to incorporate various features such
 The source code was indicated in the filename section along with the appropriate entry point (handler) and runtime (language). Initially, a data (archieve_file) was built as a zip folder before exporting it to AWS Lambda. 
 
 ## 🏔️ Challenges
-### Configuration Drift Attributes
-TerraForm is known for its declarative nature and immutable infrastructure, which 
+### Configuration Drift Property
+TerraForm is known for its declarative nature and immutable infrastructure, which can lead to issues like configuration drifts if there are dependencies on multiple resources. For instance, the csv upload to S3 was a required step for the AWS Glue ETL task to occur. Only if this file was created successfully, the dependent ETL task can be run with success along with the design for DynamoDB table. It was noticed that the file changes after terraform apply was not reflected in the S3 bucket, which resulted in some issues with ETL task. This issue was solved through constant re-runs of terraform plan and terraform apply, along with insights from CloudTrail and changes in terraform.tfstate file. 
+
+### IdempotentEntity Issue in AWS Glue
+
 1. Configuration drift attribute
 
 3. Idempotent problem with AWS Glue and DynamoDB connector
