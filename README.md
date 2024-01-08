@@ -8,9 +8,8 @@ CleanFlo is a prototype that incorporates the devOps practices from IaC tool, Te
 ## ⚙️ Process
 
 ### 1. AWS S3
-Resource for AWS S3 bucket, waterquality10989760, was made to store the water quality data for local regions in txt format. Several configurations such as CORS headers, lifecycle_configuration, logging, replication, and versioning were enabled through the creation of resources in the `buckets.tf` file. Server-side encryption was enabled through the creation of symmetric key in AWS KMS. Then, the `sse_algorithm` was connected directly to this key and its corresponding id. Then, the files were uploaded through locals loop. 
+Resource for AWS S3 bucket, waterquality10989760, was made to store the water quality data for local regions in txt format. Several configurations such as CORS headers, lifecycle_configuration, logging, replication, and versioning were enabled through the creation of resources in the `buckets.tf` file. Server-side encryption was enabled through the creation of symmetric key in AWS KMS. Then, the `sse_algorithm` was connected directly to this key and its corresponding id. Finally, the files were uploaded through locals loop that goes through every single file in the `WaterQuality` folder directory. This also includes the csv file collection for the AWS DynamoDB data (available later). 
 ```
-//putting objects in the S3 bucket
 locals {
   files_to_upload = fileset("./WaterQuality", "**/*.txt")  # Replace with your desired local directory and file pattern
 }
@@ -20,15 +19,20 @@ resource "aws_s3_bucket_object" "uploaded_objects" {
 
   bucket = "${var.bucket_name}"
   key    = each.value
-  source = "./WaterQuality/${each.value}"  # Replace with the local directory path
-  acl    = "private"  # Specify the ACL for the uploaded files, e.g., private, public-read, etc.
-
-  # Optional: Set content_type if needed
+  source = "./WaterQuality/${each.value}" 
+  acl    = "private"  
   content_type = "text/plain"
 }
 ```
 
-Setup
+### 2. AWS Glue
+Initially, the `aws_glue_catalog_database` was defined to store the information about every transformation that is being made through the script. This was facilitated by the `aws_glue_catalog_table` resource, which defines the Plants.csv table sourced from the S3 bucket. The AWS glue job will be able to transform this Plants.csv file into the DynamoDB using the python script locted in the scripts_waters bucket. 
+
+The python script uses the AWS Glue library and pySpark for ETL operations to transform the CSV data. Once the source path was defined, a DynamicFrame is created from the AWS Glue library for the csv file, and then `select_fields` was used to apply transformation for all the columns from the source table. Then, this was converted to Spark DataFrame to be written to the DynamoDB table using Apache Spark and DynamoDB connector. 
+
+### 3. AWS DynamoDB
+The resource for DynamoDB table was created to incorporate various features such as TTL, point-in-time recovery, and streams for new and old images. The primary key was set up through `UniqueID` (hash key) and `SpeciesName` (range key).  
+Dependencies
 
 Features 
 
