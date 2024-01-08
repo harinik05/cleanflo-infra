@@ -4,8 +4,4 @@ provider "aws"{
     region = "${var.region}"
 }
 
-/*
-module "s3"{
-    source = "/Users/harinikarthik/Desktop/Waterloo/Leetcode/cleanflo-poc"
-    bucket_name = "first_bucket_hk55555"
-}*/
+

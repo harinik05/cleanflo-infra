@@ -80,6 +80,38 @@ POLICY
 }
 */
 
+# Create IAM role for S3 bucket replication
+resource "aws_iam_role" "replication_role" {
+  name = "s3-replication-role"
+
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+POLICY
+}
+
+# Create the destination S3 bucket
+resource "aws_s3_bucket" "destination_bucket" {
+  bucket = "${var.destination_bucket_name}"
+  acl    = "${var.acl_value}"
+}
 
 
+# Enable versioning on the destination bucket
+resource "aws_s3_bucket_versioning" "destination_bucket_versioning" {
+  bucket = "${var.destination_bucket_name}"
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
 
