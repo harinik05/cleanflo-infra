@@ -92,8 +92,16 @@ resource "aws_s3_bucket_versioning" "destination_bucket_versioning" {
   }
 }
 
+/*
+Resource for aws_s3_bucket_request_payment_configuration
+Costs of data transfers can be paid by requester or BucketOwner
+*/
 resource "aws_s3_bucket_request_payment_configuration" "example_payment_configuration" {
   bucket = "${var.bucket_name}"
-  payer  = "Requester"  # Valid values are "BucketOwner" or "Requester"
+  payer  = "BucketOwner"  # Valid values are "BucketOwner" or "Requester"
 }
+
+/*
+Implement server side encyryption
+*/
 
