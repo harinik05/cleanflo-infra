@@ -115,3 +115,19 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_sse_config
   }
 }
 
+//putting objects in the S3 bucket
+locals {
+  files_to_upload = fileset("local-path", "**/*.txt")  # Replace with your desired local directory and file pattern
+}
+
+resource "aws_s3_bucket_object" "uploaded_objects" {
+  for_each = local.files_to_upload
+
+  bucket = aws_s3_bucket.example_bucket.bucket
+  key    = each.value
+  source = "local-path/${each.value}"  # Replace with the local directory path
+  acl    = "private"  # Specify the ACL for the uploaded files, e.g., private, public-read, etc.
+
+  # Optional: Set content_type if needed
+  content_type = "text/plain"
+}
