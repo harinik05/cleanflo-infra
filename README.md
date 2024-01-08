@@ -61,7 +61,12 @@ The resource for DynamoDB table was created to incorporate various features such
 ### 4. AWS Lambda
 The source code was indicated in the filename section along with the appropriate entry point (handler) and runtime (language). Initially, a data (archieve_file) was built as a zip folder before exporting it to AWS Lambda. 
 
-Challenges
+## 🏔️ Challenges
+### Configuration Drift Attributes
+TerraForm is known for its declarative nature and immutable infrastructure, which 
+1. Configuration drift attribute
+
+3. Idempotent problem with AWS Glue and DynamoDB connector
 
 Future Steps
 
