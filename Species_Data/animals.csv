@@ -1,0 +1,11 @@
+Species Name,Unique ID,Population Count,Presence in Area
+Lion,1001,450,True
+Elephant,1002,1200,True
+Giraffe,1003,800,True
+Zebra,1004,600,True
+Tiger,1005,300,True
+Penguin,1006,150,False
+Kangaroo,1007,200,False
+Panda,1008,400,True
+Koala,1009,100,False
+Cheetah,1010,120,True
