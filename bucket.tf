@@ -96,7 +96,7 @@ resource "aws_s3_bucket_versioning" "destination_bucket_versioning" {
 Resource for aws_s3_bucket_request_payment_configuration
 Costs of data transfers can be paid by requester or BucketOwner
 */
-resource "aws_s3_bucket_request_payment_configuration" "example_payment_configuration" {
+resource "aws_s3_bucket_request_payment_configuration" "bucket_payment_configuration" {
   bucket = "${var.bucket_name}"
   payer  = "BucketOwner"  # Valid values are "BucketOwner" or "Requester"
 }
@@ -104,4 +104,14 @@ resource "aws_s3_bucket_request_payment_configuration" "example_payment_configur
 /*
 Implement server side encyryption
 */
+resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_sse_configuration" {
+  bucket = "${var.bucket_name}"
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "aws:kms"
+      kms_master_key_id = "${var.kms_key_id}"
+    }
+  }
+}
 
