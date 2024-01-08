@@ -104,6 +104,7 @@ resource "aws_s3_bucket_request_payment_configuration" "bucket_payment_configura
 /*
 Implement server side encyryption
 */
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_sse_configuration" {
   bucket = "${var.bucket_name}"
 
@@ -117,17 +118,39 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_sse_config
 
 //putting objects in the S3 bucket
 locals {
-  files_to_upload = fileset("local-path", "**/*.txt")  # Replace with your desired local directory and file pattern
+  files_to_upload = fileset("./WaterQuality", "**/*.txt")  # Replace with your desired local directory and file pattern
 }
 
 resource "aws_s3_bucket_object" "uploaded_objects" {
   for_each = local.files_to_upload
 
-  bucket = aws_s3_bucket.example_bucket.bucket
+  bucket = "${var.bucket_name}"
   key    = each.value
-  source = "local-path/${each.value}"  # Replace with the local directory path
+  source = "./WaterQuality/${each.value}"  # Replace with the local directory path
   acl    = "private"  # Specify the ACL for the uploaded files, e.g., private, public-read, etc.
 
   # Optional: Set content_type if needed
   content_type = "text/plain"
 }
+/*
+//here is the IAM role for giving full access
+resource "aws_iam_role" "s3_upload_role" {
+  name = "s3-upload-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "s3.amazonaws.com"  # Assuming it's used by EC2, adjust if needed
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "s3_upload_policy_attachment" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"  # Replace with your desired S3 policy ARN
+  role       = aws_iam_role.s3_upload_role.name //role
+}*/
