@@ -24,7 +24,7 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
 
   attribute {
     name = "PresenceInArea"
-    type = "BOOL"
+    type = "B"
   }
 
   ttl {
@@ -39,7 +39,7 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
     write_capacity     = 10
     read_capacity      = 10
     projection_type    = "INCLUDE"
-    non_key_attributes = ["UniqueID"]
+    non_key_attributes = ["UniqueID", "PresenceInArea"]
   }
 
   tags = {
