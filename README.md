@@ -7,6 +7,27 @@ CleanFlo is a prototype that incorporates the devOps practices from IaC tool, Te
 
 ## ⚙️ Process
 
+### 1. AWS S3
+Resource for AWS S3 bucket, waterquality10989760, was made to store the water quality data for local regions in txt format. Several configurations such as CORS headers, lifecycle_configuration, logging, replication, and versioning were enabled through the creation of resources in the `buckets.tf` file. Server-side encryption was enabled through the creation of symmetric key in AWS KMS. Then, the `sse_algorithm` was connected directly to this key and its corresponding id. Then, the files were uploaded through locals loop. 
+```
+//putting objects in the S3 bucket
+locals {
+  files_to_upload = fileset("./WaterQuality", "**/*.txt")  # Replace with your desired local directory and file pattern
+}
+
+resource "aws_s3_bucket_object" "uploaded_objects" {
+  for_each = local.files_to_upload
+
+  bucket = "${var.bucket_name}"
+  key    = each.value
+  source = "./WaterQuality/${each.value}"  # Replace with the local directory path
+  acl    = "private"  # Specify the ACL for the uploaded files, e.g., private, public-read, etc.
+
+  # Optional: Set content_type if needed
+  content_type = "text/plain"
+}
+```
+
 Setup
 
 Features 
