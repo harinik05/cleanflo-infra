@@ -20,7 +20,7 @@ resource "aws_glue_catalog_table" "csv_table" {
 /*
 resource "aws_glue_job" "csv_to_dynamodb_etl" {
   name         = "csv_to_dynamodb_etl"
-  role_arn     = "arn:aws:iam::720479364235:role/AWS_Service_Role" 
+  role_arn     = "arn:aws:iam::accountnum:role/AWS_Service_Role" 
 
   command {
     name            = "glueetl"
@@ -35,7 +35,7 @@ resource "aws_glue_job" "csv_to_dynamodb_etl" {
 
 resource "aws_glue_job" "etl_job" {
   name         = "csv_to_dynamodb_etl"
-  role_arn     = "arn:aws:iam::720479364235:role/AWS_Service_Role"  # Replace with the ARN of your AWS Glue role
+  role_arn     = "arn:aws:iam::accountnum:role/AWS_Service_Role"  # Replace with the ARN of your AWS Glue role
   command {
     name     = "glueetl"
     script_location = "s3://scripts-bucket-waters/csv_to_dynamodb_etl_script.py"  # Replace with the S3 path to your ETL script
